@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0D1C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Midnight Reset">
+<title>Midnight Reset · Her Midnight Edit</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0D1C'/%3E%3Cpath d='M40 14a20 20 0 1 0 10 32A16 16 0 0 1 40 14z' fill='%23D9B98A'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B0D1C'/%3E%3Cpath d='M40 14a20 20 0 1 0 10 32A16 16 0 0 1 40 14z' fill='%23D9B98A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0D1C; --bg2:#10132A; --card:#151935; --card2:#1C2145; --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --text:#EEE9F6; --muted:#A7A3C2; --faint:#6F6B90;
+  --accent:#D9B98A; --accent2:#B9A7E8; --ink:#1A1408;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --r:18px;
+}
+[data-accent="plum"]{--accent:#CDA7EA;--accent2:#E9B9CB;--ink:#1C1024}
+[data-accent="rose"]{--accent:#E9B3B8;--accent2:#D9B98A;--ink:#2A1214}
+[data-accent="pearl"]{--accent:#E8E3D8;--accent2:#A9C1E8;--ink:#15161C}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;min-height:100vh;
+  background-image:radial-gradient(1200px 600px at 80% -10%,rgba(185,167,232,.13),transparent 60%),radial-gradient(900px 500px at -10% 10%,rgba(217,185,138,.08),transparent 60%);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.55;
+  background-image:radial-gradient(1px 1px at 12% 18%,#fff8,transparent),radial-gradient(1px 1px at 68% 8%,#fff6,transparent),radial-gradient(1px 1px at 85% 32%,#fff5,transparent),radial-gradient(1px 1px at 30% 60%,#fff4,transparent),radial-gradient(1px 1px at 52% 84%,#fff5,transparent),radial-gradient(1.5px 1.5px at 92% 72%,#fff6,transparent),radial-gradient(1px 1px at 6% 90%,#fff4,transparent)}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+.app{position:relative;max-width:1080px;margin:0 auto;display:flex;min-height:100vh}
+nav.side{display:none}
+main{flex:1;min-width:0;padding:22px 16px calc(96px + env(safe-area-inset-bottom));max-width:640px;margin:0 auto;width:100%}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:20px;letter-spacing:.02em}
+.moon{width:26px;height:26px;flex:none}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.topbar .brand small{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:-2px}
+.iconbtn{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted)}
+.iconbtn:hover{color:var(--text);border-color:var(--line2)}
+.iconbtn svg{width:18px;height:18px}
+
+/* bottom nav */
+nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-around;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:rgba(11,13,28,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+.navbtn{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;letter-spacing:.04em;color:var(--faint);padding:6px 10px;border-radius:12px;min-width:58px}
+.navbtn svg{width:21px;height:21px}
+.navbtn.on{color:var(--accent)}
+
+/* hero */
+.hero{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.hero .txt{flex:1;min-width:0}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.08;margin:6px 0 6px;letter-spacing:-.005em}
+h1 em{font-style:italic;color:var(--accent)}
+.sub{color:var(--muted);font-size:14px}
+.ring{position:relative;width:92px;height:92px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .val{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-family:var(--serif);font-size:24px;line-height:1}
+.ring .val small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.ring circle{fill:none;stroke-width:7}
+.ring .track{stroke:rgba(255,255,255,.07)}
+.ring .bar{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)}
+
+.daynav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 18px;padding:6px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
+.daynav b{font-weight:500;font-size:13.5px}
+.pill{font-size:12px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.pill:hover{color:var(--text)}
+
+/* cards */
+.card{background:linear-gradient(180deg,var(--card),rgba(21,25,53,.72));border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.card h2{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.2;display:flex;align-items:center;gap:10px}
+.card h2 .n{font-family:var(--sans);font-size:10px;letter-spacing:.14em;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:999px;padding:2px 8px}
+.card .hint{color:var(--muted);font-size:13px;margin:2px 0 14px}
+.cardhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.link{font-size:12.5px;color:var(--accent);padding:4px 2px}
+.closed-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+
+/* mood */
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.mood{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:11.5px;color:var(--muted);transition:.2s}
+.mood .dot{width:18px;height:18px;border-radius:50%;background:var(--accent);opacity:var(--o);box-shadow:0 0 0 0 transparent;transition:.2s}
+.mood.on{border-color:var(--accent);color:var(--text);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.mood.on .dot{box-shadow:0 0 18px color-mix(in srgb,var(--accent) 70%,transparent)}
+.slider{display:flex;align-items:center;gap:12px;margin-top:16px;font-size:12.5px;color:var(--muted)}
+input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:rgba(255,255,255,.1);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
+
+/* checklist */
+.check{display:flex;align-items:center;gap:12px;padding:11px 2px;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.check:last-child{border-bottom:0}
+.box{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--line2);flex:none;display:grid;place-items:center;transition:.2s}
+.box svg{width:13px;height:13px;opacity:0;transition:.2s;color:var(--ink)}
+.check.on .box{background:var(--accent);border-color:var(--accent)}
+.check.on .box svg{opacity:1}
+.check.on span.t{color:var(--muted);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent)}
+.edit-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.del{width:34px;height:34px;flex:none;border-radius:10px;border:1px solid var(--line);color:var(--faint);display:grid;place-items:center}
+.del:hover{color:#f3a0a0;border-color:#f3a0a055}
+
+/* fields */
+.field{width:100%;background:rgba(0,0,0,.18);border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;transition:border .2s}
+.field:focus{border-color:color-mix(in srgb,var(--accent) 60%,transparent)}
+textarea.field{resize:vertical;min-height:96px;line-height:1.55}
+.num-field{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.num-field i{font-style:normal;font-family:var(--serif);font-size:20px;color:var(--accent);width:16px;text-align:center}
+.prompt{font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.3;margin:4px 0 14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:14px;font-weight:500;font-size:14px;border:1px solid var(--line2)}
+.btn.primary{background:var(--accent);color:var(--ink);border-color:var(--accent);box-shadow:0 10px 30px -10px color-mix(in srgb,var(--accent) 60%,transparent)}
+.btn.block{width:100%;padding:15px}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn.danger{color:#f3a0a0;border-color:#f3a0a044}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* planned three (from last night) */
+.three{display:grid;gap:8px}
+.three .check{border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:rgba(255,255,255,.02)}
+
+/* week / habits */
+.weekhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.grid{width:100%;border-collapse:separate;border-spacing:0 6px}
+.grid th{font-weight:500;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:0 0 4px}
+.grid th.today{color:var(--accent)}
+.grid td{text-align:center;padding:0}
+.grid td.name{text-align:left;font-size:13.5px;padding-right:6px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cell{width:30px;height:30px;border-radius:9px;border:1px solid var(--line);display:inline-grid;place-items:center;transition:.15s}
+.cell.on{background:var(--accent);border-color:var(--accent);box-shadow:0 0 14px -2px color-mix(in srgb,var(--accent) 60%,transparent)}
+.cell.on svg{color:var(--ink)}
+.cell svg{width:12px;height:12px;opacity:0}
+.cell.on svg{opacity:1}
+.cell.future{opacity:.3;pointer-events:none}
+.bar-line{height:6px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:6px}
+.bar-line i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:6px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.stat b{display:block;font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.05;color:var(--text)}
+.stat b em{font-style:normal;color:var(--accent)}
+.stat span{font-size:11.5px;color:var(--muted);letter-spacing:.04em}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px}
+.cal .dow{font-size:10px;text-align:center;letter-spacing:.1em;color:var(--faint);text-transform:uppercase}
+.cal .d{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;font-size:12px;color:var(--muted);background:rgba(255,255,255,.025);border:1px solid transparent;position:relative}
+.cal .d.closed{background:var(--accent);color:var(--ink);font-weight:600;box-shadow:0 0 16px -4px color-mix(in srgb,var(--accent) 70%,transparent)}
+.cal .d.part{background:color-mix(in srgb,var(--accent) calc(var(--p)*0.4%),rgba(255,255,255,.03));color:var(--text)}
+.cal .d.today{border-color:var(--accent)}
+.cal .d.empty{background:none}
+.legend{display:flex;gap:14px;font-size:11.5px;color:var(--muted);margin-top:12px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.chart{width:100%;height:auto;display:block;margin-top:8px}
+.chart text{fill:var(--faint);font-size:10px;font-family:var(--sans)}
+
+/* journal */
+.entry{border-top:1px solid var(--line);padding:16px 0}
+.entry:first-of-type{border-top:0;padding-top:4px}
+.entry .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.entry .date{font-family:var(--serif);font-size:19px}
+.chip{font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);color:var(--accent);white-space:nowrap}
+.entry .q{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:16px;margin-bottom:4px}
+.entry p{white-space:pre-wrap;font-size:14px;color:var(--text)}
+.entry .wins{font-size:13px;color:var(--muted);margin-top:8px}
+.entry .wins b{color:var(--accent);font-weight:500}
+.empty-state{text-align:center;color:var(--muted);padding:30px 10px}
+.empty-state .moon{width:44px;height:44px;margin:0 auto 10px;opacity:.7}
+
+/* settings */
+.setrow{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.setrow:last-child{border-bottom:0}
+.setrow label{font-size:14px}
+.setrow small{display:block;color:var(--muted);font-size:12px}
+.swatches{display:flex;gap:8px}
+.sw{width:30px;height:30px;border-radius:50%;border:2px solid transparent;outline:1px solid var(--line2)}
+.sw.on{border-color:var(--bg);outline:2px solid var(--text)}
+.steps{counter-reset:s;list-style:none;font-size:13.5px;color:var(--muted)}
+.steps li{counter-increment:s;padding:6px 0 6px 30px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;border:1px solid var(--accent);color:var(--accent);font-size:11px;display:grid;place-items:center}
+.steps b{color:var(--text);font-weight:500}
+.foot{text-align:center;color:var(--faint);font-size:11px;letter-spacing:.08em;margin:26px 0 6px}
+
+/* overlay */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(6,7,16,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:grid;place-items:center;padding:20px;animation:fade .35s ease}
+.modal{width:100%;max-width:420px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line2);border-radius:24px;padding:28px 24px;text-align:center;animation:rise .45s cubic-bezier(.2,.8,.2,1)}
+.modal .moon{width:56px;height:56px;margin:0 auto 12px;filter:drop-shadow(0 0 24px color-mix(in srgb,var(--accent) 60%,transparent))}
+.modal h3{font-family:var(--serif);font-weight:500;font-size:32px;line-height:1.1;margin-bottom:8px}
+.modal p{color:var(--muted);font-size:14px;margin-bottom:18px}
+.modal .field{text-align:left;margin-bottom:10px}
+.modal .lbl{display:block;text-align:left;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:6px 0 6px}
+.big-streak{font-family:var(--serif);font-size:64px;line-height:1;color:var(--accent);margin:6px 0 2px}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--card2);border:1px solid var(--line2);padding:10px 16px;border-radius:12px;font-size:13px;z-index:60;animation:rise .3s ease;white-space:nowrap}
+@keyframes fade{from{opacity:0}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+.toast{animation:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+@media (min-width:900px){
+  nav.bottom{display:none}
+  nav.side{display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;width:230px;flex:none;padding:28px 16px;border-right:1px solid var(--line)}
+  nav.side .brand{margin:0 8px 28px}
+  nav.side .brand small{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  nav.side .navbtn{flex-direction:row;gap:12px;font-size:14px;letter-spacing:0;padding:11px 12px;color:var(--muted)}
+  nav.side .navbtn.on{background:color-mix(in srgb,var(--accent) 10%,transparent);color:var(--accent)}
+  nav.side .side-foot{margin-top:auto;font-size:11px;color:var(--faint);padding:0 12px}
+  .topbar .brand{visibility:hidden}
+  main{padding:36px 32px 60px}
+  h1{font-size:42px}
+  .stats{grid-template-columns:repeat(4,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app" data-accent="gold">
+  <nav class="side" id="sidenav"></nav>
+  <main id="main"></main>
+</div>
+<nav class="bottom" id="bottomnav"></nav>
+<input type="file" id="importFile" accept="application/json,.json" class="sr">
+
+<script>
+(function(){
+'use strict';
+/* ---------- storage (works offline, falls back to memory) ---------- */
+var KEY='midnightReset.v1', store=null;
+try{ store=window.localStorage; store.setItem('__mr','1'); store.removeItem('__mr'); }catch(e){ store=null; }
+
+var MOODS=['Drained','Heavy','Steady','Good','Glowing'];
+var PROMPTS=[
+ 'What drained you today, and what refilled you?',
+ 'Name one moment today you want to remember.',
+ 'What are you ready to let go of before sleep?',
+ 'Where did you show yourself kindness today?',
+ 'What would make tomorrow feel lighter?',
+ 'Who made today better, even a little?',
+ 'What did your body need today, and did it get it?',
+ 'Finish this sentence: Tonight I am proud that…',
+ 'What is one worry you can park until morning?',
+ 'What felt easy today? What felt heavy?',
+ 'If today were a chapter, what would its title be?',
+ 'What small thing are you looking forward to?',
+ 'What did you learn about yourself today?',
+ 'What boundary served you well today, or which one do you need?',
+ 'Describe your ideal slow morning tomorrow.',
+ 'What is something you did today that future-you will thank you for?',
+ 'What are three things in this room you are grateful for?',
+ 'What would you tell a friend who had your exact day?',
+ 'Which thought kept returning today? Write it out and set it down.',
+ 'What made you laugh or smile today?',
+ 'What does rest look like for you this week?',
+ 'What is one habit you kept today, however small?',
+ 'Where did you spend most of your energy, and was it worth it?',
+ 'What are you carrying that is not yours to carry?',
+ 'Write a short note to yourself for tomorrow morning.',
+ 'What did you say yes to today? What could you say no to?',
+ 'What softened you today?',
+ 'Which part of your routine felt most like you?',
+ 'What is one thing you would do differently, without judgement?',
+ 'What did today teach you about what you need?',
+ 'What is one beautiful thing you noticed today?',
+ 'How do you want to feel when you wake up?',
+ 'What are you quietly building, one day at a time?',
+ 'What can wait? What truly matters tomorrow?',
+ 'What made you feel most like yourself today?',
+ 'Close your eyes for three breaths. What came up?'
+];
+var DEFAULT_ROUTINE=['Phone on charge, away from bed','Skincare & teeth','Tidy one small space','Lay out tomorrow’s outfit','Water glass by the bed','Ten minutes of reading','Lights dimmed, screens off'];
+var DEFAULT_HABITS=['Drink 2L water','Move my body','Read 10 pages','No phone in bed','Skincare ritual'];
+
+function uid(){ return Math.random().toString(36).slice(2,9); }
+function defaults(){
+  return { v:1,
+    profile:{ name:'', bedtime:'22:30', accent:'gold', onboarded:false, lastBackup:null },
+    routine: DEFAULT_ROUTINE.map(function(t){ return {id:uid(), text:t}; }),
+    habits: DEFAULT_HABITS.map(function(t){ return {id:uid(), name:t}; }),
+    days:{}
+  };
+}
+function load(){
+  try{
+    var raw=store && store.getItem(KEY);
+    if(raw){
+      var d=JSON.parse(raw), base=defaults();
+      return { v:1, profile:Object.assign(base.profile,d.profile||{}), routine:d.routine||base.routine, habits:d.habits||base.habits, days:d.days||{} };
+    }
+  }catch(e){}
+  return defaults();
+}
+var S=load();
+function save(){ try{ store && store.setItem(KEY, JSON.stringify(S)); }catch(e){ toast('Could not save. Is storage full?'); } }
+
+/* ---------- dates ---------- */
+function pad(n){ return (n<10?'0':'')+n; }
+function keyOf(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function fromKey(k){ var p=k.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
+function addDays(k,n){ var d=fromKey(k); d.setDate(d.getDate()+n); return keyOf(d); }
+function todayKey(){ return keyOf(new Date()); }
+function fmt(k,opt){ return fromKey(k).toLocaleDateString(undefined,opt||{weekday:'long',day:'numeric',month:'long'}); }
+function hashStr(s){ var h=0; for(var i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return Math.abs(h); }
+
+function blankDay(k){ return { mood:null, energy:3, checks:{}, top3:['','',''], done3:[false,false,false], wins:['','',''], journal:'', dump:'', prompt:hashStr(k)%PROMPTS.length, habits:{}, closed:false }; }
+function getDay(k){ return S.days[k] || blankDay(k); }
+function ensureDay(k){ if(!S.days[k]) S.days[k]=blankDay(k); return S.days[k]; }
+
+function progress(d){
+  var total=1+S.routine.length+3+1+1, done=0;
+  if(d.mood) done++;
+  S.routine.forEach(function(r){ if(d.checks[r.id]) done++; });
+  d.top3.forEach(function(t){ if(t.trim()) done++; });
+  if(d.wins.some(function(w){ return w.trim(); })) done++;
+  if(d.journal.trim()) done++;
+  return total? Math.round(done/total*100) : 0;
+}
+function hasContent(d){ return d && (d.journal.trim()||d.dump.trim()||d.wins.some(function(w){return w.trim();})||d.mood); }
+
+function streaks(){
+  var keys=Object.keys(S.days).filter(function(k){ return S.days[k].closed; }).sort();
+  var set={}; keys.forEach(function(k){ set[k]=1; });
+  var best=0, run=0, prev=null;
+  keys.forEach(function(k){ run=(prev && addDays(prev,1)===k)? run+1 : 1; best=Math.max(best,run); prev=k; });
+  var cur=0, k=todayKey();
+  if(!set[k]) k=addDays(k,-1);
+  while(set[k]){ cur++; k=addDays(k,-1); }
+  return {cur:cur, best:best, total:keys.length};
+}
+
+/* ---------- ui helpers ---------- */
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+var ICON={
+  moon:'<svg class="moon" viewBox="0 0 64 64" aria-hidden="true"><path d="M40 10a22 22 0 1 0 14 38A18 18 0 0 1 40 10z" fill="var(--accent)"/><circle cx="50" cy="16" r="1.6" fill="var(--accent)"/><circle cx="56" cy="27" r="1" fill="var(--accent)"/></svg>',
+  tonight:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',
+  week:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14l2 2 4-4"/></svg>',
+  journal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h11a2 2 0 0 1 2 2v15H7a2 2 0 0 1-2-2V4.5a1 1 0 0 1 1-1z"/><path d="M5 18.5a2 2 0 0 1 2-2h12M9 8h6M9 11.5h4"/></svg>',
+  glow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></svg>',
+  settings:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+  tick:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  x:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  left:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
+  right:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
+  shuffle:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>'
+};
+
+var UI={ view:'tonight', day:todayKey(), editRitual:false, editHabits:false, weekStart:null, calMonth:null, search:'' };
+
+function toast(msg){
+  var t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); },2200);
+}
+
+/* ---------- nav ---------- */
+var NAV=[['tonight','Tonight'],['week','Habits'],['journal','Journal'],['glow','Glow'],['settings','Settings']];
+function renderNav(){
+  var b=NAV.map(function(n){ return '<button class="navbtn'+(UI.view===n[0]?' on':'')+'" data-act="nav" data-v="'+n[0]+'" aria-label="'+n[1]+'">'+ICON[n[0]]+'<span>'+n[1]+'</span></button>'; }).join('');
+  document.getElementById('bottomnav').innerHTML=b;
+  document.getElementById('sidenav').innerHTML='<div class="brand">'+ICON.moon+'<div>Midnight Reset<small>Her Midnight Edit</small></div></div>'+b+'<div class="side-foot">Your data stays on this device.</div>';
+}
+function topbar(){
+  return '<div class="topbar"><div class="brand">'+ICON.moon+'<div>Midnight Reset<small>Her Midnight Edit</small></div></div>'+
+    '<button class="iconbtn" data-act="nav" data-v="settings" aria-label="Settings">'+ICON.settings+'</button></div>';
+}
+
+/* ---------- views ---------- */
+function bedtimeLine(){
+  var bt=(S.profile.bedtime||'22:30').split(':'), now=new Date(), b=new Date();
+  b.setHours(+bt[0],+bt[1],0,0);
+  var diff=Math.round((b-now)/60000);
+  if(diff<-240) diff+=1440;
+  if(diff>0 && diff<=720){ var h=Math.floor(diff/60), m=diff%60; return (h?h+'h':'')+(h&&m?' ':'')+(m||!h?m+'m':'')+' until lights out · '+S.profile.bedtime; }
+  if(diff<=0) return 'Past lights out. Close the day gently and rest.';
+  return 'Lights out tonight at '+S.profile.bedtime;
+}
+function ring(p){
+  var c=2*Math.PI*38, off=c*(1-p/100);
+  return '<div class="ring" id="ring"><svg viewBox="0 0 92 92"><circle class="track" cx="46" cy="46" r="38"/><circle class="bar" cx="46" cy="46" r="38" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'"/></svg><div class="val"><div>'+p+'%<small>Reset</small></div></div></div>';
+}
+function updateRing(){
+  var el=document.getElementById('ring'); if(!el) return;
+  var p=progress(getDay(UI.day)), c=2*Math.PI*38;
+  el.querySelector('.bar').setAttribute('stroke-dashoffset',(c*(1-p/100)).toFixed(1));
+  el.querySelector('.val div').innerHTML=p+'%<small>Reset</small>';
+}
+
+function vTonight(){
+  var k=UI.day, d=getDay(k), isToday=k===todayKey(), name=S.profile.name.trim();
+  var hour=new Date().getHours();
+  var greet= hour<5?'Still awake':hour<12?'Good morning':hour<17?'Good afternoon':'Good evening';
+  var h='';
+  h+='<section class="hero"><div class="txt"><div class="eyebrow">'+esc(fmt(k))+'</div>';
+  h+= isToday? '<h1>'+greet+(name?', <em>'+esc(name)+'</em>':'')+'.</h1><p class="sub">'+esc(bedtimeLine())+'</p>'
+             : '<h1>Looking back.</h1><p class="sub">You can edit any past evening.</p>';
+  h+='</div>'+ring(progress(d))+'</section>';
+  h+='<div class="daynav"><button class="iconbtn" data-act="day" data-n="-1" aria-label="Previous day">'+ICON.left+'</button><b>'+(isToday?'Tonight':esc(fmt(k,{weekday:'short',day:'numeric',month:'short'})))+(d.closed?' · <span class="closed-badge">closed</span>':'')+'</b>'+
+     (isToday?'<span style="width:38px"></span>':'<div class="row" style="gap:6px"><button class="pill" data-act="day" data-n="0">Today</button><button class="iconbtn" data-act="day" data-n="1" aria-label="Next day">'+ICON.right+'</button></div>')+'</div>';
+
+  // planned yesterday
+  var y=S.days[addDays(k,-1)];
+  if(y && y.top3.some(function(t){return t.trim();})){
+    h+='<div class="card"><div class="cardhead"><div><h2>Today’s three</h2><p class="hint">What you chose last night. Tick what you did.</p></div></div><div class="three">';
+    y.top3.forEach(function(t,i){ if(!t.trim()) return;
+      h+='<button class="check'+(y.done3[i]?' on':'')+'" data-act="done3" data-i="'+i+'"><span class="box">'+ICON.tick+'</span><span class="t">'+esc(t)+'</span></button>'; });
+    h+='</div></div>';
+  }
+
+  // check in
+  h+='<div class="card"><h2><span class="n">01</span>Check in</h2><p class="hint">How did today leave you?</p><div class="moods">';
+  MOODS.forEach(function(m,i){ h+='<button class="mood'+(d.mood===i+1?' on':'')+'" data-act="mood" data-i="'+(i+1)+'" style="--o:'+(0.25+i*0.18)+'"><span class="dot"></span>'+m+'</button>'; });
+  h+='</div><div class="slider"><span>Energy</span><input type="range" min="1" max="5" step="1" value="'+d.energy+'" data-bind="energy" aria-label="Energy"><span id="enval">'+d.energy+'/5</span></div></div>';
+
+  // ritual
+  h+='<div class="card"><div class="cardhead"><div><h2><span class="n">02</span>Wind-down ritual</h2><p class="hint">Your steps from day to rest.</p></div><button class="link" data-act="editRitual">'+(UI.editRitual?'Done':'Edit')+'</button></div>';
+  if(UI.editRitual){
+    S.routine.forEach(function(r){ h+='<div class="edit-row"><input class="field" value="'+esc(r.text)+'" data-bind="ritual" data-id="'+r.id+'"><button class="del" data-act="delRitual" data-id="'+r.id+'" aria-label="Remove">'+ICON.x+'</button></div>'; });
+    h+='<div class="edit-row"><input class="field" id="newRitual" placeholder="Add a step…" data-enter="addRitual"><button class="btn ghost" data-act="addRitual">Add</button></div>';
+  } else {
+    if(!S.routine.length) h+='<p class="hint">No steps yet. Tap Edit to build your ritual.</p>';
+    S.routine.forEach(function(r){ h+='<button class="check'+(d.checks[r.id]?' on':'')+'" data-act="check" data-id="'+r.id+'"><span class="box">'+ICON.tick+'</span><span class="t">'+esc(r.text)+'</span></button>'; });
+  }
+  h+='</div>';
+
+  // top 3
+  h+='<div class="card"><h2><span class="n">03</span>Tomorrow’s three</h2><p class="hint">Only three. Everything else can wait.</p>';
+  for(var i=0;i<3;i++) h+='<div class="num-field"><i>'+(i+1)+'</i><input class="field" value="'+esc(d.top3[i])+'" placeholder="'+['The one that matters most','Something for you','A small, kind task'][i]+'" data-bind="top3" data-i="'+i+'"></div>';
+  h+='</div>';
+
+  // wins
+  h+='<div class="card"><h2><span class="n">04</span>Soft wins</h2><p class="hint">Three things that went right, however small.</p>';
+  for(var j=0;j<3;j++) h+='<div class="num-field"><i>✦</i><input class="field" value="'+esc(d.wins[j])+'" placeholder="'+['I remembered to…','I am grateful for…','A moment I enjoyed…'][j]+'" data-bind="wins" data-i="'+j+'"></div>';
+  h+='</div>';
+
+  // prompt
+  h+='<div class="card"><div class="cardhead"><h2><span class="n">05</span>Tonight’s page</h2><button class="link" data-act="shuffle" aria-label="New prompt">'+ICON.shuffle+'</button></div>';
+  h+='<p class="prompt">'+esc(PROMPTS[d.prompt%PROMPTS.length])+'</p><textarea class="field" rows="5" placeholder="Write freely. No one else will read this." data-bind="journal">'+esc(d.journal)+'</textarea></div>';
+
+  // dump
+  h+='<div class="card"><h2><span class="n">06</span>Brain dump</h2><p class="hint">Empty your head so it doesn’t keep you awake.</p><textarea class="field" rows="4" placeholder="Errands, worries, ideas…" data-bind="dump">'+esc(d.dump)+'</textarea></div>';
+
+  h+= d.closed ? '<button class="btn block ghost" data-act="reopen">Day closed · Reopen</button>'
+               : '<button class="btn primary block" data-act="close">'+ICON.tonight.replace('<svg','<svg width="18" height="18"')+' Close the day</button>';
+  h+='<p class="foot">MIDNIGHT RESET · HER MIDNIGHT EDIT</p>';
+  return h;
+}
+
+function mondayOf(k){ var d=fromKey(k), w=(d.getDay()+6)%7; d.setDate(d.getDate()-w); return keyOf(d); }
+function vWeek(){
+  if(!UI.weekStart) UI.weekStart=mondayOf(todayKey());
+  var ws=UI.weekStart, tk=todayKey(), days=[]; for(var i=0;i<7;i++) days.push(addDays(ws,i));
+  var h='<section class="hero"><div class="txt"><div class="eyebrow">Habits</div><h1>Small things, <em>kept</em>.</h1><p class="sub">Tap a square to mark a habit done.</p></div></section>';
+  h+='<div class="card"><div class="weekhead"><button class="iconbtn" data-act="week" data-n="-7" aria-label="Previous week">'+ICON.left+'</button><b style="font-weight:500;font-size:14px">'+esc(fmt(days[0],{day:'numeric',month:'short'}))+' – '+esc(fmt(days[6],{day:'numeric',month:'short'}))+'</b><button class="iconbtn" data-act="week" data-n="7" aria-label="Next week">'+ICON.right+'</button></div>';
+  if(!S.habits.length) h+='<p class="hint">No habits yet. Add one below.</p>';
+  else{
+    h+='<div style="overflow-x:auto"><table class="grid"><tr><th></th>';
+    days.forEach(function(k){ h+='<th class="'+(k===tk?'today':'')+'">'+esc(fmt(k,{weekday:'narrow'}))+'</th>'; });
+    h+='</tr>';
+    S.habits.forEach(function(hb){
+      h+='<tr><td class="name" title="'+esc(hb.name)+'">'+esc(hb.name)+'</td>';
+      days.forEach(function(k){ var on=S.days[k]&&S.days[k].habits[hb.id];
+        h+='<td><button class="cell'+(on?' on':'')+(k>tk?' future':'')+'" data-act="habit" data-id="'+hb.id+'" data-k="'+k+'" aria-label="'+esc(hb.name)+' '+k+'">'+ICON.tick+'</button></td>'; });
+      h+='</tr>';
+    });
+    h+='</table></div>';
+  }
+  h+='</div>';
+  // per habit progress
+  if(S.habits.length){
+    h+='<div class="card"><h2>This week</h2><p class="hint">How often each habit showed up.</p>';
+    S.habits.forEach(function(hb){
+      var c=0, n=0; days.forEach(function(k){ if(k<=tk){ n++; if(S.days[k]&&S.days[k].habits[hb.id]) c++; } });
+      var p=n?Math.round(c/n*100):0;
+      h+='<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:13.5px"><span>'+esc(hb.name)+'</span><span style="color:var(--muted)">'+c+'/'+n+'</span></div><div class="bar-line"><i style="width:'+p+'%"></i></div></div>';
+    });
+    h+='</div>';
+  }
+  h+='<div class="card"><div class="cardhead"><h2>Your habits</h2><button class="link" data-act="editHabits">'+(UI.editHabits?'Done':'Edit')+'</button></div><div style="margin-top:12px"></div>';
+  if(UI.editHabits){
+    S.habits.forEach(function(hb){ h+='<div class="edit-row"><input class="field" value="'+esc(hb.name)+'" data-bind="habitName" data-id="'+hb.id+'"><button class="del" data-act="delHabit" data-id="'+hb.id+'" aria-label="Remove">'+ICON.x+'</button></div>'; });
+  }
+  h+='<div class="edit-row"><input class="field" id="newHabit" placeholder="Add a habit…" data-enter="addHabit" maxlength="40"><button class="btn ghost" data-act="addHabit">Add</button></div></div>';
+  return h;
+}
+
+function vJournal(){
+  var q=UI.search.trim().toLowerCase();
+  var h='<section class="hero"><div class="txt"><div class="eyebrow">Journal</div><h1>Every evening, <em>kept</em>.</h1><p class="sub">Your pages, wins and moods in one place.</p></div></section>';
+  h+='<input class="field" id="search" placeholder="Search your pages…" value="'+esc(UI.search)+'" data-bind="search" style="margin-bottom:14px">';
+  h+='<div class="card" id="entries">'+journalEntries(q)+'</div>';
+  return h;
+}
+function journalEntries(q){
+  var keys=Object.keys(S.days).filter(function(k){ return hasContent(S.days[k]); }).sort().reverse();
+  if(q) keys=keys.filter(function(k){ var d=S.days[k]; return [d.journal,d.dump,d.wins.join(' '),d.top3.join(' '),PROMPTS[d.prompt%PROMPTS.length]].join(' ').toLowerCase().indexOf(q)>-1; });
+  if(!keys.length) return '<div class="empty-state">'+ICON.moon+'<p>'+(q?'Nothing matches that search.':'Your first page appears here after tonight’s reset.')+'</p></div>';
+  return keys.map(function(k){
+    var d=S.days[k], wins=d.wins.filter(function(w){return w.trim();});
+    var o='<div class="entry"><div class="meta"><button class="date" data-act="open" data-k="'+k+'" style="text-align:left">'+esc(fmt(k,{weekday:'short',day:'numeric',month:'long'}))+'</button>'+(d.mood?'<span class="chip">'+MOODS[d.mood-1]+'</span>':'')+'</div>';
+    if(d.journal.trim()) o+='<div class="q">'+esc(PROMPTS[d.prompt%PROMPTS.length])+'</div><p>'+esc(d.journal)+'</p>';
+    if(wins.length) o+='<div class="wins"><b>Soft wins · </b>'+wins.map(esc).join(' · ')+'</div>';
+    if(d.dump.trim()) o+='<div class="wins"><b>Brain dump · </b>'+esc(d.dump)+'</div>';
+    return o+'</div>';
+  }).join('');
+}
+
+function vGlow(){
+  var st=streaks(), tk=todayKey();
+  var moods=[], plannedN=0, plannedDone=0;
+  for(var i=0;i<30;i++){ var k=addDays(tk,-i), d=S.days[k]; if(d&&d.mood) moods.push(d.mood);
+    if(d){ d.top3.forEach(function(t,j){ if(t.trim()){ plannedN++; if(d.done3[j]) plannedDone++; } }); } }
+  var avg=moods.length? (moods.reduce(function(a,b){return a+b;},0)/moods.length) : 0;
+  var h='<section class="hero"><div class="txt"><div class="eyebrow">Glow</div><h1>Your <em>patterns</em>, softly.</h1><p class="sub">The last 30 days at a glance.</p></div></section>';
+  h+='<div class="stats">'+
+    '<div class="stat"><b><em>'+st.cur+'</em></b><span>Night streak</span></div>'+
+    '<div class="stat"><b>'+st.best+'</b><span>Best streak</span></div>'+
+    '<div class="stat"><b>'+(avg?MOODS[Math.round(avg)-1]:'–')+'</b><span>Typical mood</span></div>'+
+    '<div class="stat"><b>'+(plannedN?Math.round(plannedDone/plannedN*100)+'%':'–')+'</b><span>Of your three, done</span></div></div>';
+
+  // calendar
+  if(!UI.calMonth){ var n=new Date(); UI.calMonth=n.getFullYear()+'-'+pad(n.getMonth()+1); }
+  var cm=UI.calMonth.split('-'), y=+cm[0], m=+cm[1]-1, first=new Date(y,m,1), dim=new Date(y,m+1,0).getDate(), lead=(first.getDay()+6)%7;
+  h+='<div class="card"><div class="weekhead"><button class="iconbtn" data-act="cal" data-n="-1" aria-label="Previous month">'+ICON.left+'</button><h2 style="font-size:21px">'+esc(first.toLocaleDateString(undefined,{month:'long',year:'numeric'}))+'</h2><button class="iconbtn" data-act="cal" data-n="1" aria-label="Next month">'+ICON.right+'</button></div><div class="cal">';
+  ['M','T','W','T','F','S','S'].forEach(function(x){ h+='<div class="dow">'+x+'</div>'; });
+  for(var a=0;a<lead;a++) h+='<div class="d empty"></div>';
+  for(var dd=1; dd<=dim; dd++){
+    var kk=y+'-'+pad(m+1)+'-'+pad(dd), dy=S.days[kk], cls='d', sty='';
+    if(dy&&dy.closed) cls+=' closed'; else if(dy){ var p=progress(dy); if(p>0){ cls+=' part'; sty=' style="--p:'+p+'"'; } }
+    if(kk===tk) cls+=' today';
+    h+='<button class="'+cls+'"'+sty+' data-act="open" data-k="'+kk+'">'+dd+'</button>';
+  }
+  h+='</div><div class="legend"><span><i style="background:var(--accent)"></i>Day closed</span><span><i style="background:color-mix(in srgb,var(--accent) 25%,transparent)"></i>Started</span></div></div>';
+
+  // mood chart
+  var W=600,H=170,px=26,py=18, pts=[];
+  for(var c=29;c>=0;c--){ var kc=addDays(tk,-c), dc=S.days[kc]; if(dc&&dc.mood) pts.push([px+(29-c)*(W-px*2)/29, H-py-(dc.mood-1)*(H-py*2)/4]); }
+  var svg='<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Mood over the last 30 days">';
+  for(var g=0;g<5;g++){ var gy=H-py-g*(H-py*2)/4; svg+='<line x1="'+px+'" x2="'+(W-px)+'" y1="'+gy+'" y2="'+gy+'" stroke="rgba(255,255,255,.06)"/>'; }
+  svg+='<text x="0" y="'+(py+4)+'">✦</text><text x="0" y="'+(H-py+4)+'">·</text>';
+  if(pts.length>1){
+    var line=pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ');
+    svg+='<defs><linearGradient id="gl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".28"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>';
+    svg+='<polygon points="'+pts[0][0].toFixed(1)+','+(H-py)+' '+line+' '+pts[pts.length-1][0].toFixed(1)+','+(H-py)+'" fill="url(#gl)"/>';
+    svg+='<polyline points="'+line+'" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>';
+  }
+  pts.forEach(function(p){ svg+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.5" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/>'; });
+  svg+='</svg>';
+  h+='<div class="card"><h2>Mood, 30 days</h2><p class="hint">From drained (bottom) to glowing (top).</p>'+(pts.length?svg:'<div class="empty-state" style="padding:18px">Check in a few evenings to see your mood line.</div>')+'</div>';
+
+  // habit totals
+  if(S.habits.length){
+    h+='<div class="card"><h2>Habits, 30 days</h2><p class="hint">Days each habit was kept.</p>';
+    S.habits.forEach(function(hb){ var c2=0; for(var i2=0;i2<30;i2++){ var d2=S.days[addDays(tk,-i2)]; if(d2&&d2.habits[hb.id]) c2++; }
+      h+='<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:13.5px"><span>'+esc(hb.name)+'</span><span style="color:var(--muted)">'+c2+' days</span></div><div class="bar-line"><i style="width:'+Math.round(c2/30*100)+'%"></i></div></div>'; });
+    h+='</div>';
+  }
+  return h;
+}
+
+function vSettings(){
+  var p=S.profile;
+  var h='<section class="hero"><div class="txt"><div class="eyebrow">Settings</div><h1>Make it <em>yours</em>.</h1></div></section>';
+  h+='<div class="card"><div class="setrow"><div><label for="nm">Your name</label><small>Used in your evening greeting</small></div><input class="field" id="nm" style="max-width:170px" value="'+esc(p.name)+'" data-bind="name" placeholder="Your name"></div>';
+  h+='<div class="setrow"><div><label for="bt">Lights-out time</label><small>Powers your bedtime countdown</small></div><input class="field" id="bt" type="time" style="max-width:130px" value="'+esc(p.bedtime)+'" data-bind="bedtime"></div>';
+  h+='<div class="setrow"><div><label>Accent</label><small>'+({gold:'Midnight Gold',plum:'Velvet Plum',rose:'Moon Rose',pearl:'Pearl'})[p.accent]+'</small></div><div class="swatches">';
+  [['gold','#D9B98A'],['plum','#CDA7EA'],['rose','#E9B3B8'],['pearl','#E8E3D8']].forEach(function(s){ h+='<button class="sw'+(p.accent===s[0]?' on':'')+'" style="background:'+s[1]+'" data-act="accent" data-v="'+s[0]+'" aria-label="'+s[0]+'"></button>'; });
+  h+='</div></div></div>';
+
+  h+='<div class="card"><h2>Backup</h2><p class="hint">Your data lives privately in this browser. Save a backup file once a month, or before you change phones or clear your browser.'+(p.lastBackup?' Last backup: '+esc(fmt(p.lastBackup,{day:'numeric',month:'short',year:'numeric'}))+'.':'')+'</p>';
+  h+='<div class="row"><button class="btn primary" data-act="export">Download backup</button><button class="btn ghost" data-act="import">Restore from file</button></div></div>';
+
+  h+='<div class="card"><h2>Add to your home screen</h2><p class="hint">Open it like an app, no app store needed.</p><ol class="steps">'+
+    '<li><b>iPhone (Safari):</b> tap Share, then <b>Add to Home Screen</b>.</li>'+
+    '<li><b>Android (Chrome):</b> tap the ⋮ menu, then <b>Add to Home screen</b>.</li>'+
+    '<li><b>Computer:</b> bookmark this page, or use Chrome’s <b>Install</b> icon in the address bar.</li></ol></div>';
+
+  h+='<div class="card"><h2>Start over</h2><p class="hint">Erase every entry, habit and setting on this device. This cannot be undone.</p><button class="btn danger" data-act="reset">Erase all data</button></div>';
+  h+='<p class="foot">MIDNIGHT RESET v1.0 · © HER MIDNIGHT EDIT · FOR PERSONAL USE</p>';
+  return h;
+}
+
+/* ---------- render ---------- */
+function render(keepScroll){
+  document.getElementById('app').setAttribute('data-accent',S.profile.accent||'gold');
+  renderNav();
+  var v={tonight:vTonight,week:vWeek,journal:vJournal,glow:vGlow,settings:vSettings}[UI.view]();
+  var y=window.scrollY;
+  document.getElementById('main').innerHTML=topbar()+v;
+  if(keepScroll) window.scrollTo(0,y); else window.scrollTo(0,0);
+  if(!S.profile.onboarded) onboarding();
+}
+
+function modal(html){
+  closeModal();
+  var o=document.createElement('div'); o.className='overlay'; o.id='overlay'; o.innerHTML='<div class="modal" role="dialog" aria-modal="true">'+html+'</div>';
+  document.body.appendChild(o);
+  var f=o.querySelector('input'); if(f) setTimeout(function(){ f.focus(); },50);
+}
+function closeModal(){ var o=document.getElementById('overlay'); if(o) o.remove(); }
+function onboarding(){
+  if(document.getElementById('overlay')) return;
+  modal(ICON.moon+'<h3>Welcome to your Midnight Reset</h3><p>A ten-minute evening ritual to close the day, clear your head and wake up with a plan.</p>'+
+    '<label class="lbl" for="obName">What should we call you?</label><input class="field" id="obName" placeholder="Your name" maxlength="30">'+
+    '<label class="lbl" for="obBed">Lights-out time</label><input class="field" id="obBed" type="time" value="'+esc(S.profile.bedtime)+'">'+
+    '<button class="btn primary block" style="margin-top:8px" data-act="onboard">Begin tonight</button>');
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click',function(e){
+  var a=e.target.closest('[data-act]'); if(!a) return;
+  var act=a.getAttribute('data-act'), k=UI.day, d;
+  switch(act){
+    case 'nav': UI.view=a.getAttribute('data-v'); UI.editRitual=false; UI.editHabits=false; render(); break;
+    case 'day': var n=+a.getAttribute('data-n'); UI.day= n===0? todayKey() : addDays(UI.day,n); if(UI.day>todayKey()) UI.day=todayKey(); render(); break;
+    case 'open': UI.day=a.getAttribute('data-k'); if(UI.day>todayKey()) return; UI.view='tonight'; render(); break;
+    case 'mood': d=ensureDay(k); var mi=+a.getAttribute('data-i'); d.mood= d.mood===mi?null:mi; save(); render(true); break;
+    case 'check': d=ensureDay(k); var id=a.getAttribute('data-id'); d.checks[id]=!d.checks[id]; save(); a.classList.toggle('on'); updateRing(); break;
+    case 'done3': var y=S.days[addDays(k,-1)]; var i=+a.getAttribute('data-i'); y.done3[i]=!y.done3[i]; save(); a.classList.toggle('on'); break;
+    case 'shuffle': d=ensureDay(k); d.prompt=(d.prompt+1+Math.floor(Math.random()*(PROMPTS.length-1)))%PROMPTS.length; save(); render(true); break;
+    case 'editRitual': UI.editRitual=!UI.editRitual; render(true); break;
+    case 'addRitual': var nr=document.getElementById('newRitual'); if(nr&&nr.value.trim()){ S.routine.push({id:uid(),text:nr.value.trim()}); save(); render(true); var n2=document.getElementById('newRitual'); n2&&n2.focus(); } break;
+    case 'delRitual': S.routine=S.routine.filter(function(r){ return r.id!==a.getAttribute('data-id'); }); save(); render(true); break;
+    case 'close':
+      d=ensureDay(k); d.closed=true; save(); render(true);
+      var st=streaks();
+      modal(ICON.moon+'<h3>Day closed.</h3><p>Everything is written down. Nothing else is needed from you tonight.</p><div class="big-streak">'+st.cur+'</div><p style="margin-top:0">night'+(st.cur===1?'':'s')+' in a row'+(st.cur>=st.best&&st.cur>1?' · your best yet':'')+'</p><button class="btn primary block" data-act="closeModal">Sleep well</button>');
+      break;
+    case 'reopen': d=ensureDay(k); d.closed=false; save(); render(true); break;
+    case 'closeModal': closeModal(); break;
+    case 'habit': var hk=a.getAttribute('data-k'); if(hk>todayKey()) return; d=ensureDay(hk); var hid=a.getAttribute('data-id'); d.habits[hid]=!d.habits[hid]; save(); render(true); break;
+    case 'week': UI.weekStart=addDays(UI.weekStart,+a.getAttribute('data-n')); render(true); break;
+    case 'editHabits': UI.editHabits=!UI.editHabits; render(true); break;
+    case 'addHabit': var nh=document.getElementById('newHabit'); if(nh&&nh.value.trim()){ S.habits.push({id:uid(),name:nh.value.trim()}); save(); render(true); var n3=document.getElementById('newHabit'); n3&&n3.focus(); } break;
+    case 'delHabit': S.habits=S.habits.filter(function(h){ return h.id!==a.getAttribute('data-id'); }); save(); render(true); break;
+    case 'cal': var cm=UI.calMonth.split('-'), dt=new Date(+cm[0],+cm[1]-1+(+a.getAttribute('data-n')),1); UI.calMonth=dt.getFullYear()+'-'+pad(dt.getMonth()+1); render(true); break;
+    case 'accent': S.profile.accent=a.getAttribute('data-v'); save(); render(true); break;
+    case 'export':
+      try{
+        var blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}), url=URL.createObjectURL(blob), l=document.createElement('a');
+        l.href=url; l.download='midnight-reset-backup-'+todayKey()+'.json'; document.body.appendChild(l); l.click(); l.remove(); setTimeout(function(){ URL.revokeObjectURL(url); },1000);
+        S.profile.lastBackup=todayKey(); save(); render(true); toast('Backup downloaded');
+      }catch(err){ toast('Download not supported here'); }
+      break;
+    case 'import': document.getElementById('importFile').click(); break;
+    case 'reset':
+      modal('<h3>Erase everything?</h3><p>All entries, habits and settings on this device will be deleted. Download a backup first if you might want them.</p><div class="row" style="justify-content:center"><button class="btn ghost" data-act="closeModal">Keep my data</button><button class="btn danger" data-act="resetYes">Erase</button></div>');
+      break;
+    case 'resetYes': S=defaults(); save(); closeModal(); UI.view='tonight'; UI.day=todayKey(); render(); break;
+    case 'onboard':
+      S.profile.name=(document.getElementById('obName').value||'').trim();
+      S.profile.bedtime=document.getElementById('obBed').value||'22:30';
+      S.profile.onboarded=true; save(); closeModal(); render(); break;
+  }
+});
+
+document.addEventListener('input',function(e){
+  var t=e.target, b=t.getAttribute('data-bind'); if(!b) return;
+  var d, i;
+  switch(b){
+    case 'energy': d=ensureDay(UI.day); d.energy=+t.value; var ev=document.getElementById('enval'); if(ev) ev.textContent=t.value+'/5'; break;
+    case 'top3': case 'wins': d=ensureDay(UI.day); i=+t.getAttribute('data-i'); d[b][i]=t.value; updateRing(); break;
+    case 'journal': case 'dump': d=ensureDay(UI.day); d[b]=t.value; updateRing(); break;
+    case 'ritual': S.routine.forEach(function(r){ if(r.id===t.getAttribute('data-id')) r.text=t.value; }); break;
+    case 'habitName': S.habits.forEach(function(h){ if(h.id===t.getAttribute('data-id')) h.name=t.value; }); break;
+    case 'name': S.profile.name=t.value; break;
+    case 'bedtime': S.profile.bedtime=t.value||'22:30'; break;
+    case 'search': UI.search=t.value; var en=document.getElementById('entries'); if(en) en.innerHTML=journalEntries(t.value.trim().toLowerCase()); return;
+  }
+  save();
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'){ var t=e.target, a=t.getAttribute&&t.getAttribute('data-enter'); if(a){ e.preventDefault(); var b=document.querySelector('[data-act="'+a+'"]'); b&&b.click(); } }
+  if(e.key==='Escape' && S.profile.onboarded) closeModal();
+});
+document.getElementById('importFile').addEventListener('change',function(e){
+  var f=e.target.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{ var d=JSON.parse(r.result); if(!d||!d.days||!d.profile) throw 0;
+      var base=defaults(); S={v:1,profile:Object.assign(base.profile,d.profile),routine:d.routine||base.routine,habits:d.habits||base.habits,days:d.days};
+      save(); render(); toast('Backup restored');
+    }catch(err){ toast('That file isn’t a Midnight Reset backup'); }
+    e.target.value='';
+  };
+  r.readAsText(f);
+});
+
+// new day at midnight / refresh countdown
+var lastKey=todayKey();
+setInterval(function(){
+  var tk=todayKey();
+  if(tk!==lastKey){ if(UI.day===lastKey) UI.day=tk; lastKey=tk; if(UI.view==='tonight') render(true); return; }
+  if(UI.view==='tonight' && UI.day===tk && !document.activeElement.matches('input,textarea')){ var s=document.querySelector('.hero .sub'); if(s) s.textContent=bedtimeLine(); }
+},30000);
+
+if(!store) setTimeout(function(){ toast('Private mode: entries won’t be saved'); },800);
+render();
+})();
+</script>
+</body>
+</html>
